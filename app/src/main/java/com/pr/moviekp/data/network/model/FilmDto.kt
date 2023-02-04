@@ -11,18 +11,15 @@ data class FilmDto(
     val filmId: Int?,
     @SerialName("genres")
     val genres: List<GenreDto?>?,
-    @SerialName("nameEn")
-    val nameEn: String?,
     @SerialName("nameRu")
     val nameRu: String?,
     @SerialName("posterUrl")
     val posterUrl: String?,
     @SerialName("posterUrlPreview")
     val posterUrlPreview: String?,
-    @SerialName("rating")
-    val rating: String?,
-    @SerialName("ratingVoteCount")
-    val ratingVoteCount: Int?,
     @SerialName("year")
-    val year: String?
+    val year: String?,
 )
+
+
+

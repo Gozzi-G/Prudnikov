@@ -27,7 +27,12 @@ private fun createHttpClient(
 
     val client = HttpClient(Android) {
         expectSuccess = true
-        install(ContentNegotiation) { json(json) }
+        install(ContentNegotiation) {
+            json(Json {
+                isLenient = true
+                ignoreUnknownKeys = true
+            })
+        }
         defaultRequest {
             url(BuildConfig.BASE_URL)
             header("X-API-KEY", BuildConfig.API_KEY)

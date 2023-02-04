@@ -5,8 +5,6 @@ import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import com.pr.moviekp.MainActivity
 import com.pr.moviekp.R
 
@@ -26,7 +24,7 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     private fun bindToolbar(view: View) {
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
         if (toolbar != null) {
-            toolbar.setupWithNavController(findNavController())
+//            toolbar.setupWithNavController(findNavController())
             (activity as? MainActivity)?.setSupportActionBar(toolbar)
         }
     }

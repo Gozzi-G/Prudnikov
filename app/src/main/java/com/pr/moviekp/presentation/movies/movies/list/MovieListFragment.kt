@@ -9,6 +9,7 @@ import android.view.View
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pr.moviekp.R
 import com.pr.moviekp.base.BaseFragment
@@ -17,6 +18,7 @@ import com.pr.moviekp.base.states.StateLCE
 import com.pr.moviekp.base.states.ViewState
 import com.pr.moviekp.base.viewBinding
 import com.pr.moviekp.databinding.FragmentMovieListBinding
+import com.pr.moviekp.presentation.movies.movies.detail.MovieDetailFragment
 import com.pr.moviekp.presentation.movies.movies.list.adapter.MoviesListAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -36,7 +38,6 @@ class MovieListFragment : BaseFragment(R.layout.fragment_movie_list) {
         initViewState()
         setupRecyclerView()
         setupObservers()
-
     }
 
     private fun initViewState() {
@@ -79,7 +80,9 @@ class MovieListFragment : BaseFragment(R.layout.fragment_movie_list) {
 
             },
             onItemClickListener = {
-
+                val action =
+                    MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(it)
+                findNavController().navigate(action)
             }
         )
 

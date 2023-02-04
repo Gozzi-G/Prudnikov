@@ -1,5 +1,6 @@
 package com.pr.moviekp.data.repositories
 
+import Ram
 import com.pr.moviekp.data.mapper.FilmMapper
 import com.pr.moviekp.data.network.KtorMovieDataSource
 import com.pr.moviekp.domain.models.FilmItem
@@ -20,4 +21,11 @@ class MovieRepositoryImpl(
         }.map { mapper.mapListDTOModelToListModel(it.films) }
     }
 
+    override suspend fun getDescription(id: String): Flow<Ram> {
+        return flow {
+            emit(remoteDataSource.getDescriptionMovie(id))
+
+        }
+
+    }
 }

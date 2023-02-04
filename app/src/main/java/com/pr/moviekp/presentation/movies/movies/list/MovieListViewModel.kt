@@ -28,7 +28,6 @@ class MovieListViewModel(private val movieRepository: MovieRepository) : BaseVie
             loading()
             movieRepository.getTopMovies()
                 .onEach { items ->
-                    Timber.tag("Timber").d("MoviesViewModel: $items")
                     _filmList.value = items
                     content()
                 }

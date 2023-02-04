@@ -1,7 +1,10 @@
 package com.pr.moviekp.domain.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlin.random.Random
 
+@Parcelize
 data class FilmItem(
     val filmId: Int?,
     val title: String?,
@@ -9,5 +12,6 @@ data class FilmItem(
     val year: String?,
     val posterUrl: String?,
     val countries: List<String>?,
-    val isFavourite: Boolean = Random.nextBoolean(),
-)
+    val isFavourite: Boolean = false,
+    val description: String = ""
+) : Parcelable
