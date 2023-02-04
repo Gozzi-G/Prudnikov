@@ -3,6 +3,7 @@ package com.pr.moviekp
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
@@ -10,6 +11,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.pr.moviekp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -41,6 +43,12 @@ class MainActivity : AppCompatActivity() {
             NavigationUI.setupWithNavController(binding.bottomNavigationView, it)
         }
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
+    }
+
+    fun setTitleActionBar(title: Toolbar) {
+        setSupportActionBar(title)
+        supportActionBar?.title = "dssfsf"
+//        setupActionBarWithNavController(navController!!)
     }
 
     override fun onDestroy() {
