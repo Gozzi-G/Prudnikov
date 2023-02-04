@@ -4,48 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.movies.movies.MovieListFragment">
+    tools:context=".presentation.movies.movies.list.MovieListFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
+            app:titleTextColor="@color/black"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            android:contentInsetStart="0dp"
-            android:contentInsetLeft="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp">
-
-            <SearchView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:visibility="visible"
-                android:layout_gravity="end"
-                app:closeIcon="@drawable/baseline_search_24"
-                app:searchIcon="@drawable/baseline_search_24" />
-
-
-        </androidx.appcompat.widget.Toolbar>
-
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingHorizontal="15dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-
-        <TextView
-            android:id="@+id/text"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Популярные" />
+            android:clipToPadding="false"
+            android:paddingVertical="8dp"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/item_movie" />
 
-    </LinearLayout>
+    </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

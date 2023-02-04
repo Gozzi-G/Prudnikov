@@ -1,4 +1,4 @@
-package com.pr.moviekp.presentation.movies.favourite
+package com.pr.moviekp.presentation.movies.movies.favourite
 
 import android.os.Bundle
 import android.view.View

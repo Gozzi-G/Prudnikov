@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">movieKP</string>
+    <string name="movie_list_toolbar_title">Популярные</string>
+
+    <string name="error">Произошла ошибка при загрузке данных</string>
+    <string name="error_view_reload">Повторить</string>
 </resources>

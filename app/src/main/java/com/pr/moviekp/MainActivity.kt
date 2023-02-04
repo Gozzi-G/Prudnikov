@@ -3,7 +3,7 @@ package com.pr.moviekp
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
@@ -11,14 +11,21 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.pr.moviekp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
     private var navController: NavController? = null
+
     private val topLevelDestinations = setOf(getMainIdDestination(), getFavouriteInDestination())
+
+    var isBottomNavigationVisible: Boolean
+        get() = binding.bottomNavigationView.isVisible
+        set(value) {
+            binding.bottomNavigationView.isVisible = value
+        }
 
     // fragment listener is sued for tracking current nav controller
     private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
@@ -45,11 +52,15 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
     }
 
-    fun setTitleActionBar(title: Toolbar) {
-        setSupportActionBar(title)
-        supportActionBar?.title = "dssfsf"
-//        setupActionBarWithNavController(navController!!)
+    override fun onSupportNavigateUp(): Boolean {
+        return navController?.navigateUp() ?: false
     }
+
+    private fun getNavController(): NavController {
+        val navHost = supportFragmentManager.findFragmentById(R.id.tabsContainer) as NavHostFragment
+        return navHost.navController
+    }
+
 
     override fun onDestroy() {
         supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentListener)
@@ -57,10 +68,6 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    private fun getNavController(): NavController {
-        val navHost = supportFragmentManager.findFragmentById(R.id.tabsContainer) as NavHostFragment
-        return navHost.navController
-    }
 
     private fun onNavControllerActivated(navController: NavController) {
         if (this.navController == navController) return
@@ -69,17 +76,10 @@ class MainActivity : AppCompatActivity() {
         this.navController = navController
     }
 
-    override fun onBackPressed() {
-        if (isStartDestination(navController?.currentDestination)) {
-            super.onBackPressed()
-        } else {
-            navController?.popBackStack()
-        }
-    }
 
     private val destinationListener =
         NavController.OnDestinationChangedListener { _, destination, _ ->
-            supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
+//            supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
         }
 
     private fun isStartDestination(destination: NavDestination?): Boolean {

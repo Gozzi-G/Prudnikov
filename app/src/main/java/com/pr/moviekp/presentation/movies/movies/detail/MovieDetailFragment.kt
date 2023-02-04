@@ -1,4 +1,4 @@
-package com.pr.moviekp.presentation.movies.detail
+package com.pr.moviekp.presentation.movies.movies.detail
 
 import android.os.Bundle
 import android.view.View

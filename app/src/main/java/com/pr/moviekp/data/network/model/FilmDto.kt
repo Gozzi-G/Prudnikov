@@ -9,8 +9,6 @@ data class FilmDto(
     val countries: List<CountryDto?>?,
     @SerialName("filmId")
     val filmId: Int?,
-    @SerialName("filmLength")
-    val filmLength: String?,
     @SerialName("genres")
     val genres: List<GenreDto?>?,
     @SerialName("nameEn")

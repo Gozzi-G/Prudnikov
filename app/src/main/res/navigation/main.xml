@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/movieListFragment"
-        android:name="com.pr.moviekp.presentation.movies.movies.MovieListFragment"
+        android:name="com.pr.moviekp.presentation.movies.movies.list.MovieListFragment"
         android:label="fragment_movie_list"
         tools:layout="@layout/fragment_movie_list" >
         <action
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="com.pr.moviekp.presentation.movies.detail.MovieDetailFragment"
+        android:name="com.pr.moviekp.presentation.movies.movies.detail.MovieDetailFragment"
         android:label="fragment_movie_detail"
         tools:layout="@layout/fragment_movie_detail" />
 
