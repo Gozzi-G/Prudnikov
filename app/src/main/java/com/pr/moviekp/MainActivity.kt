@@ -1,24 +1,20 @@
 package com.pr.moviekp
 
-import android.app.Activity
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.unit.dp
-import androidx.core.view.*
+import androidx.core.view.WindowCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.pr.moviekp.base.dp
+import com.pr.moviekp.base.setMarginTop
 import com.pr.moviekp.databinding.ActivityMainBinding
+import com.pr.moviekp.presentation.movies.movies.detail.MovieDetailFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,7 +39,11 @@ class MainActivity : AppCompatActivity() {
             savedInstanceState: Bundle?
         ) {
             super.onFragmentViewCreated(fm, f, v, savedInstanceState)
-            onNavControllerActivated(f.findNavController())
+            if (f is MovieDetailFragment) {
+                binding.root.setMarginTop(0)
+            } else {
+                binding.root.setMarginTop(50)
+            }
         }
     }
 
@@ -57,42 +57,13 @@ class MainActivity : AppCompatActivity() {
             NavigationUI.setupWithNavController(binding.bottomNavigationView, it)
         }
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
-//        setStatusBarTransparent()
+        setStatusBarTransparent()
     }
 
     private fun setStatusBarTransparent() {
-//        window.statusBarColor = Color.TRANSPARENT
-//        WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        makeStatusBarTransparent()
-//        binding.root.setMarginTop(100)
-
-//        window.apply {
-//            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-//            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-//            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//            statusBarColor = Color.TRANSPARENT
-//
-//            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-//
-//            ViewCompat.setOnApplyWindowInsetsListener(
-//                binding.root) { _, insets ->
-//                //and so on for left and right insets
-//                insets.consumeSystemWindowInsets()
-//            }
-//
-//            ViewCompat.setOnApplyWindowInsetsListener(
-//                binding.root) { _, insets ->
-//                val menu = findViewById<FloatingActionButton>(R.id.fab_back_or_menu)
-//                val menuLayoutParams = menu.layoutParams as ViewGroup.MarginLayoutParams
-//                menuLayoutParams.setMargins(0, insets.systemWindowInsetTop, 0, 0)
-//                menu.layoutParams = menuLayoutParams
-//                insets.consumeSystemWindowInsets()
-//            }
-//
-//        }
+        window.statusBarColor = Color.TRANSPARENT
+        WindowCompat.setDecorFitsSystemWindows(window, false)
     }
-
 
 
     override fun onSupportNavigateUp(): Boolean {
@@ -112,14 +83,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun onNavControllerActivated(navController: NavController) {
-        if (this.navController == navController) return
-        this.navController?.removeOnDestinationChangedListener(destinationListener)
-        navController.addOnDestinationChangedListener(destinationListener)
-        this.navController = navController
-    }
-
-
     private val destinationListener =
         NavController.OnDestinationChangedListener { _, destination, _ ->
             supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
@@ -134,20 +97,4 @@ class MainActivity : AppCompatActivity() {
 
     private fun getMainIdDestination(): Int = R.id.main
     private fun getFavouriteInDestination(): Int = R.id.favourite
-}
-
-fun Activity.makeStatusBarTransparent() {
-    window.apply {
-        clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        statusBarColor = Color.TRANSPARENT
-    }
-}
-
-fun View.setMarginTop(marginTop: Int) {
-    val menuLayoutParams = this.layoutParams as ViewGroup.MarginLayoutParams
-    menuLayoutParams.setMargins(0, marginTop, 0, 0)
-    this.layoutParams = menuLayoutParams
 }
