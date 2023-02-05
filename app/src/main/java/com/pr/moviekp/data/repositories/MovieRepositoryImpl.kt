@@ -29,12 +29,6 @@ class MovieRepositoryImpl(
 
     @OptIn(FlowPreview::class)
     override suspend fun getFilmList(): Flow<List<FilmItem>> {
-
-        flow {
-            emit(favouriteFilmDao.getFilmList())
-        }
-
-
         return flow {
             emit(favouriteFilmDao.getFilmList())
         }.flatMapMerge {
