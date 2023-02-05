@@ -8,5 +8,6 @@ interface MovieRepository {
     suspend fun getFilmList(): Flow<List<FilmItem>>
     suspend fun getFilmDetailInfo(id: String): Flow<FilmItem>
     suspend fun addToFavourite(filmItem: FilmItem)
+    suspend fun removeFromFavourite(filmItem: FilmItem)
 
 }

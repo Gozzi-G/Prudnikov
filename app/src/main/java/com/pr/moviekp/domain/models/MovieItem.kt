@@ -10,7 +10,7 @@ data class FilmItem(
     val genres: String,
     val year: String,
     val posterUrl: String,
-    val countries: String,
+    val countries: String = "",
     val isFavourite: Boolean,
     val description: String = ""
 ) : Parcelable

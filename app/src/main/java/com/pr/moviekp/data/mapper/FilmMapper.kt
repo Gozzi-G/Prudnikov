@@ -4,6 +4,7 @@ import FilmInfoDto
 import com.pr.moviekp.data.network.model.FilmDto
 import com.pr.moviekp.data.repositories.FilmItemDbModel
 import com.pr.moviekp.domain.models.FilmItem
+import timber.log.Timber
 
 class FilmMapper {
 
@@ -11,7 +12,7 @@ class FilmMapper {
         return FilmItem(
             filmId = dto?.filmId ?: -1,
             title = dto?.nameRu ?: "",
-            genres = dto?.genres?.joinToString(",") { it?.genre ?: "" } ?: "",
+            genres = dto?.genres?.map { it?.genre ?: "" }?.firstOrNull() ?: "",
             year = dto?.year ?: "",
             posterUrl = dto?.posterUrl ?: "",
             countries = dto?.countries?.joinToString(",") { it?.country ?: "" } ?: "",
@@ -23,7 +24,7 @@ class FilmMapper {
         return FilmItem(
             filmId = dto?.kinopoiskId ?: -1,
             title = dto?.nameRu ?: "",
-            genres = dto?.genres?.joinToString(",") { it?.genre ?: "" } ?: "",
+            genres = dto?.genres?.map { it?.genre ?: "" }?.firstOrNull() ?: "",
             year = dto?.year ?: "",
             posterUrl = dto?.posterUrl ?: "",
             countries = dto?.countries?.joinToString(",") { it?.country ?: "" } ?: "",
@@ -45,10 +46,12 @@ class FilmMapper {
     }
 
     fun mapDtoToDbModel(dto: FilmDto?): FilmItemDbModel {
+        Timber.tag("mapDtoToDbModel").d("${dto?.genres?.map { it?.genre }?.firstOrNull()}")
+
         return FilmItemDbModel(
             id = dto?.filmId ?: -1,
             title = dto?.nameRu ?: "",
-            genres = dto?.genres?.joinToString(",") { it?.genre ?: "" } ?: "",
+            genres = dto?.genres?.map { it?.genre }?.firstOrNull() ?: "",
             year = dto?.year ?: "",
             posterUrl = dto?.posterUrl ?: "",
             countries = dto?.countries?.joinToString(",") { it?.country ?: "" } ?: "",

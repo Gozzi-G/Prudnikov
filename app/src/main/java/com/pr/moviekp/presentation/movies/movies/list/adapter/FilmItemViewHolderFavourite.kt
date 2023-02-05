@@ -33,6 +33,7 @@ class FilmItemViewHolderFavourite(
     private fun setViews() {
         binding.tvTitle.text = item.title
         binding.tvGenre.text = item.genres
+        binding.tvYear.text = itemView.context.getString(R.string.film_year, item.year)
 
         Glide.with(binding.root.context)
             .load(item.posterUrl)

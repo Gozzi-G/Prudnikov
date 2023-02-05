@@ -28,5 +28,7 @@
         <item name="android:windowLightStatusBar">
             true
         </item>
+
+        <item name="colorControlNormal">@color/bluePrimary</item>
     </style>
 </resources>

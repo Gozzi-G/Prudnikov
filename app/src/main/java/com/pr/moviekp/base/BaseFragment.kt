@@ -33,4 +33,8 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
         (activity as? MainActivity)?.supportActionBar?.title = title
     }
 
+    fun setHomeButtonEnabled(enable: Boolean) {
+        (activity as? MainActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(enable)
+    }
+
 }

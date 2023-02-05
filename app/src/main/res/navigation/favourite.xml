@@ -9,6 +9,14 @@
         android:id="@+id/favouriteMovieFragment"
         android:name="com.pr.moviekp.presentation.movies.movies.favourite.FavouriteMovieFragment"
         android:label="fragment_favourite_movie"
-        tools:layout="@layout/fragment_favourite_movie" />
+        tools:layout="@layout/fragment_favourite_movie" >
+        <action
+            android:id="@+id/action_favouriteMovieFragment_to_movieDetailFragment2"
+            app:destination="@id/movieDetailFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment2"
+        android:name="com.pr.moviekp.presentation.movies.movies.detail.MovieDetailFragment"
+        android:label="MovieDetailFragment" />
 
 </navigation>

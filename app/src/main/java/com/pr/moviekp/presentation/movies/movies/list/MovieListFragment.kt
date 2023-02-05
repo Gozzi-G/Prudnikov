@@ -38,6 +38,7 @@ class MovieListFragment : BaseFragment(R.layout.fragment_movie_list) {
         initViewState()
         setupRecyclerView()
         setupObservers()
+        viewModel.onViewCreated()
     }
 
     private fun initViewState() {
@@ -104,7 +105,7 @@ class MovieListFragment : BaseFragment(R.layout.fragment_movie_list) {
             else -> 1
         }
         binding.rvContent.layoutManager = GridLayoutManager(activity, columnsQuantity)
-
+        rv.itemAnimator = null
     }
 
     private fun setupMenu() {

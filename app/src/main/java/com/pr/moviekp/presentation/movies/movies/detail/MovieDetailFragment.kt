@@ -42,6 +42,9 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        isBottomNavigationVisible = false
+        setToolbarTitle(null)
+        setHomeButtonEnabled(true)
         initViewState()
         setObservers()
     }
@@ -67,7 +70,6 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
                     viewState.error()
                 }
             }
-            isBottomNavigationVisible = state is StateLCE.Content
         }
 
     }

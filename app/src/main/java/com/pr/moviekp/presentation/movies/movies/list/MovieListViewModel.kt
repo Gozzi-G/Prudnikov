@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class MovieListViewModel(private val movieRepository: MovieRepository) : BaseViewModel() {
 
@@ -18,21 +17,19 @@ class MovieListViewModel(private val movieRepository: MovieRepository) : BaseVie
     private var _filmList: MutableLiveData<List<FilmItem>> = MutableLiveData<List<FilmItem>>()
     val filmList: LiveData<List<FilmItem>> = _filmList
 
-
-    init {
+    fun onViewCreated() {
         loadFilms()
     }
 
     fun loadFilms() {
+        loading()
         viewModelScope.launch {
-            loading()
             movieRepository.getFilmList()
                 .onEach { items ->
                     _filmList.value = items
                     content()
                 }
                 .catch {
-                    Timber.tag("Timber").e("Error: ${it}")
                     error()
                 }
                 .collect()
@@ -45,7 +42,8 @@ class MovieListViewModel(private val movieRepository: MovieRepository) : BaseVie
             val newItem = filmItem.copy(isFavourite = !filmItem.isFavourite)
             movieRepository.addToFavourite(newItem)
 
-            val oldFilms = _filmList.value?.toMutableList() ?: throw java.lang.IllegalStateException()
+            val oldFilms =
+                _filmList.value?.toMutableList() ?: throw java.lang.IllegalStateException()
             val newFilms = oldFilms.apply {
                 replaceAll {
                     if (it.filmId == newItem.filmId) {
@@ -60,7 +58,6 @@ class MovieListViewModel(private val movieRepository: MovieRepository) : BaseVie
         }
 
     }
-
 
 
 }

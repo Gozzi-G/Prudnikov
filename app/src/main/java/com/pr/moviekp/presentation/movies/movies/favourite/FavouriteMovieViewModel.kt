@@ -38,4 +38,28 @@ class FavouriteMovieViewModel(
                 }
         }
     }
+    fun deleteFromFavourite(filmItem: FilmItem) {
+
+        viewModelScope.launch {
+            val newItem = filmItem.copy(isFavourite = !filmItem.isFavourite)
+            movieRepository.removeFromFavourite(newItem)
+
+            val oldFilms = _filmList.value?.toMutableList() ?: throw java.lang.IllegalStateException()
+            val newFilms = oldFilms.apply {
+                replaceAll {
+                    if (it.filmId == newItem.filmId) {
+                        newItem
+                    } else {
+                        it
+                    }
+                }
+            }.filter {
+                it.isFavourite
+            }
+
+
+            _filmList.value = newFilms
+        }
+
+    }
 }
