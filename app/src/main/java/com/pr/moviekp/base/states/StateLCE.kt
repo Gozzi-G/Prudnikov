@@ -1,18 +1,15 @@
 package com.pr.moviekp.base.states
 
-sealed class StateLCE(open val animate: Boolean = false) {
+sealed class StateLCE() {
 
     class Loading(
-        override val animate: Boolean,
-    ): StateLCE(animate)
+    ): StateLCE()
 
     class Content(
-        override val animate: Boolean,
-    ): StateLCE(animate)
+    ): StateLCE()
 
     class Error(
-        override val animate: Boolean = false,
-        customMessage: String = "",
-    ): StateLCE(animate)
+        val customMessage: String? = "",
+    ): StateLCE()
 
 }

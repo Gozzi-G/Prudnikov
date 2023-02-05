@@ -34,7 +34,6 @@ class MoviesListAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-
         when (holder) {
             is FilmItemViewHolder -> {
                 holder.bind(item)

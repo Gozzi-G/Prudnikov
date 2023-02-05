@@ -26,7 +26,7 @@ class MovieListViewModel(private val movieRepository: MovieRepository) : BaseVie
     fun loadFilms() {
         viewModelScope.launch {
             loading()
-            movieRepository.getTopMovies()
+            movieRepository.getFilmList()
                 .onEach { items ->
                     _filmList.value = items
                     content()
@@ -38,5 +38,29 @@ class MovieListViewModel(private val movieRepository: MovieRepository) : BaseVie
                 .collect()
         }
     }
+
+    fun addToFavourite(filmItem: FilmItem) {
+
+        viewModelScope.launch {
+            val newItem = filmItem.copy(isFavourite = !filmItem.isFavourite)
+            movieRepository.addToFavourite(newItem)
+
+            val oldFilms = _filmList.value?.toMutableList() ?: throw java.lang.IllegalStateException()
+            val newFilms = oldFilms.apply {
+                replaceAll {
+                    if (it.filmId == newItem.filmId) {
+                        newItem
+                    } else {
+                        it
+                    }
+                }
+            }
+
+            _filmList.value = newFilms
+        }
+
+    }
+
+
 
 }

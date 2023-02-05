@@ -46,7 +46,7 @@ class MovieListFragment : BaseFragment(R.layout.fragment_movie_list) {
             .error()
             .build()
         viewState.btnRetry?.onClickDebounce {
-            viewState.load(false)
+            viewState.load()
             viewModel.loadFilms()
         }
     }
@@ -59,13 +59,13 @@ class MovieListFragment : BaseFragment(R.layout.fragment_movie_list) {
         viewModel.observeStateLCE(viewLifecycleOwner) { state ->
             when (state) {
                 is StateLCE.Loading -> {
-                    viewState.load(state.animate)
+                    viewState.load()
                 }
                 is StateLCE.Content -> {
-                    viewState.content(state.animate)
+                    viewState.content()
                 }
                 is StateLCE.Error -> {
-                    viewState.error(state.animate)
+                    viewState.error()
                 }
             }
             isBottomNavigationVisible = state is StateLCE.Content
@@ -77,12 +77,14 @@ class MovieListFragment : BaseFragment(R.layout.fragment_movie_list) {
 
         filmListAdapter = MoviesListAdapter(
             onLongItemClickListener = {
-
+                viewModel.addToFavourite(it)
             },
             onItemClickListener = {
-                val action =
-                    MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(it)
-                findNavController().navigate(action)
+                val args = MovieDetailFragment.args(it.filmId)
+                findNavController().navigate(
+                    R.id.action_movieListFragment_to_movieDetailFragment,
+                    args
+                )
             }
         )
 

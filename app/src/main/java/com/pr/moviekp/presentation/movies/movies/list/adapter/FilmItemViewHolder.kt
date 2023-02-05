@@ -32,7 +32,7 @@ class FilmItemViewHolder(
 
     private fun setViews() {
         binding.tvTitle.text = item.title
-        binding.tvGenre.text = item.genres?.firstOrNull() ?: ""
+        binding.tvGenre.text = item.genres
 
         Glide.with(binding.root.context)
             .load(item.posterUrl)

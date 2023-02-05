@@ -72,6 +72,7 @@ class States(private val viewState: ViewState) {
                 textSize = 16f
                 setTextColor(getColor(context, R.color.bluePrimary))
             }
+
             viewState.tvError!!.text = context.getString(R.string.error)
             addView(viewState.tvError)
 

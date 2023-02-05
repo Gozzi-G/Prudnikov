@@ -62,15 +62,15 @@ class ViewState private constructor(contentView: View) {
         states[state] = target
     }
 
-    fun content(animate: Boolean) {
+    fun content() {
         state(CONTENT)
     }
 
-    fun load(animate: Boolean) {
+    fun load() {
         state(LOAD)
     }
 
-    fun error(animate: Boolean) {
+    fun error() {
         state(ERROR)
     }
 

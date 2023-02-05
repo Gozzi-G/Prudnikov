@@ -10,34 +10,31 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class MovieDetailViewModel(
     private val repository: MovieRepository,
     private val filmId: String,
 ) : BaseViewModel() {
 
-    private var _filmList: MutableLiveData<String> = MutableLiveData<String>()
-    val filmList: LiveData<String> = _filmList
+    private var _filmList: MutableLiveData<FilmItem> = MutableLiveData<FilmItem>()
+    val filmList: LiveData<FilmItem> = _filmList
 
     init {
-        loadFilmById(filmId)
+        loadFilmById()
     }
 
-    private fun loadFilmById(id: String) {
+    fun loadFilmById() {
+        loading()
         viewModelScope.launch {
-            repository.getDescription(filmId)
-                .onEach { items ->
-                    Timber.tag("Timber").d("MovieDetailViewModel: $items")
-                    _filmList.value = items.description
+            repository.getFilmDetailInfo(filmId)
+                .onEach { item ->
+                    _filmList.value = item
                     content()
                 }
                 .catch {
-                    Timber.tag("Timber").e("Error: ${it}")
                     error()
                 }
                 .collect()
         }
-
     }
 }

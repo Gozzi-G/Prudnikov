@@ -16,11 +16,11 @@ abstract class BaseViewModel : ViewModel(), KoinComponent {
     }
 
     protected fun loading() {
-        stateLCE.value = StateLCE.Loading(false)
+        stateLCE.value = StateLCE.Loading()
     }
 
     protected fun content(subState: String = "") {
-        val state = StateLCE.Content(false)
+        val state = StateLCE.Content()
         stateLCE.value = state
     }
 

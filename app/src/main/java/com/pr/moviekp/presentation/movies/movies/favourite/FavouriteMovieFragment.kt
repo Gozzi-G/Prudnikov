@@ -29,6 +29,7 @@ class FavouriteMovieFragment : BaseFragment(R.layout.fragment_favourite_movie) {
         initViewState()
         setupRecyclerView()
         setupObservers()
+        viewModel.onViewCreated()
     }
 
     private fun initViewState() {
@@ -37,7 +38,7 @@ class FavouriteMovieFragment : BaseFragment(R.layout.fragment_favourite_movie) {
             .error()
             .build()
         viewState.btnRetry?.onClickDebounce {
-            viewState.load(false)
+            viewState.load()
             viewModel.loadFilms()
         }
     }
@@ -49,13 +50,14 @@ class FavouriteMovieFragment : BaseFragment(R.layout.fragment_favourite_movie) {
         viewModel.observeStateLCE(viewLifecycleOwner) { state ->
             when (state) {
                 is StateLCE.Loading -> {
-                    viewState.load(state.animate)
+                    viewState.load()
                 }
                 is StateLCE.Content -> {
-                    viewState.content(state.animate)
+                    viewState.content()
                 }
                 is StateLCE.Error -> {
-                    viewState.error(state.animate)
+                    viewState.tvError?.text = state.customMessage
+                    viewState.error()
                 }
             }
             isBottomNavigationVisible = state is StateLCE.Content
