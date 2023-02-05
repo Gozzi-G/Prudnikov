@@ -17,6 +17,15 @@ class MovieRepositoryImpl(
 
     private val favouriteFilmDao = database.favouriteFilmsDao()
 
+    override suspend fun getFilmsFromDb(): Flow<List<FilmItem>> {
+        return flow {
+            emit(favouriteFilmDao.getFilmList())
+        }.map {
+            mapper.mapListDbModelToListEntity(it)
+        }.flowOn(Dispatchers.IO)
+
+    }
+
 
     @OptIn(FlowPreview::class)
     override suspend fun getFilmList(): Flow<List<FilmItem>> {
@@ -33,7 +42,6 @@ class MovieRepositoryImpl(
                 val response = remoteDataSource.getTopMovies()
                 val dbModelList = response.films?.map { mapper.mapDtoToDbModel(it) } ?: emptyList()
                 favouriteFilmDao.insertFilmList(dbModelList)
-                favouriteFilmDao.getFilmList()
                 mapper.mapListDbModelToListEntity(favouriteFilmDao.getFilmList())
             } else {
                 mapper.mapListDbModelToListEntity(it)

@@ -58,7 +58,6 @@ class FavouriteMovieFragment : BaseFragment(R.layout.fragment_favourite_movie) {
                     viewState.content()
                 }
                 is StateLCE.Error -> {
-                    viewState.tvError?.text = state.customMessage
                     viewState.error()
                 }
             }

@@ -8,8 +8,11 @@ import com.pr.moviekp.domain.models.FilmItem
 import com.pr.moviekp.domain.repositories.MovieRepository
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.net.UnknownHostException
 
 class MovieListViewModel(private val movieRepository: MovieRepository) : BaseViewModel() {
 
@@ -30,9 +33,30 @@ class MovieListViewModel(private val movieRepository: MovieRepository) : BaseVie
                     content()
                 }
                 .catch {
+                    if (it is UnknownHostException) {
+                        Timber.tag("loadFilms").d("$it")
+                        loadFromLocal()
+                    }
+
                     error()
                 }
                 .collect()
+        }
+    }
+
+    fun loadFromLocal() {
+        viewModelScope.launch {
+            movieRepository.getFilmsFromDb()
+                .map {
+                    it.filter { it.isFavourite }
+                }
+                .catch {
+                    error()
+                }
+                .collect { items ->
+                    _filmList.value = items
+                    content()
+                }
         }
     }
 

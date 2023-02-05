@@ -46,8 +46,6 @@ class FilmMapper {
     }
 
     fun mapDtoToDbModel(dto: FilmDto?): FilmItemDbModel {
-        Timber.tag("mapDtoToDbModel").d("${dto?.genres?.map { it?.genre }?.firstOrNull()}")
-
         return FilmItemDbModel(
             id = dto?.filmId ?: -1,
             title = dto?.nameRu ?: "",

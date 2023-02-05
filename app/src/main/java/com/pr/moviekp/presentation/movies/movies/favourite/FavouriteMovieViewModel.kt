@@ -25,7 +25,7 @@ class FavouriteMovieViewModel(
     fun loadFilms() {
         viewModelScope.launch {
             loading()
-            movieRepository.getFilmList()
+            movieRepository.getFilmsFromDb()
                 .map {
                     it.filter { it.isFavourite }
                 }
