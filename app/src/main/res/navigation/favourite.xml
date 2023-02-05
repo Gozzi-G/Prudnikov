@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/favourite"
+    app:startDestination="@id/favouriteMovieFragment">
+
+    <fragment
+        android:id="@+id/favouriteMovieFragment"
+        android:name="com.pr.moviekp.presentation.movies.movies.favourite.FavouriteMovieFragment"
+        android:label="fragment_favourite_movie"
+        tools:layout="@layout/fragment_favourite_movie" >
+        <action
+            android:id="@+id/action_favouriteMovieFragment_to_movieDetailFragment2"
+            app:destination="@id/movieDetailFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment2"
+        android:name="com.pr.moviekp.presentation.movies.movies.detail.MovieDetailFragment"
+        android:label="MovieDetailFragment" />
+
+</navigation>
