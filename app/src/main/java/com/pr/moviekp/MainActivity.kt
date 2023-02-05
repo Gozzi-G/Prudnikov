@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             binding.bottomNavigationView.isVisible = value
         }
 
-    // fragment listener is sued for tracking current nav controller
+
     private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
         override fun onFragmentViewCreated(
             fm: FragmentManager,
